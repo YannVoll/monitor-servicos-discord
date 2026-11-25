@@ -1,0 +1,42 @@
+# Lista de alvos monitorados. Edite à vontade: adicione os sites/serviços que você usa.
+# Nunca coloque senhas/tokens aqui; use *_env com o NOME da variável definida no .env.
+
+defaults:
+  timeout: 10               # segundos
+  latency_warn_ms: 2000     # acima disso -> EM ALERTA
+  ssl_warn_days: 15         # certificado vencendo em menos dias -> EM ALERTA
+  failures_before_alert: 2  # falhas seguidas antes de declarar FORA DO AR (evita alarme falso)
+
+targets:
+  - name: Senac RS
+    url: https://www.senacrs.com.br
+    expected_status: [200]
+
+  - name: GitHub
+    url: https://github.com
+    keyword: GitHub          # a página precisa conter este texto
+
+  # API autenticada com Bearer Token (o token vem da variável GITHUB_TOKEN do .env).
+  # Sem token também funciona, mas com limite menor de requisições.
+  - name: GitHub API
+    url: https://api.github.com/rate_limit
+    auth:
+      type: bearer
+      token_env: GITHUB_TOKEN
+
+  # Porta TCP: DNS da Cloudflare
+  - name: DNS Cloudflare (TCP 53)
+    type: tcp
+    host: 1.1.1.1
+    port: 53
+
+  # Alvo da demonstração ao vivo: suba com "python -m http.server 8000" e derrube com Ctrl+C.
+  - name: Servidor local (demo)
+    url: http://localhost:8000
+    timeout: 3
+    failures_before_alert: 1
+
+  # Exemplo de detecção de problema de certificado (site de testes que tem SSL vencido).
+  - name: Teste SSL expirado
+    url: https://expired.badssl.com
+    enabled: false          # mude para true para ver o alerta de SSL
