@@ -79,7 +79,7 @@ Protocolos: HTTP/HTTPS, TLS, TCP, DNS (resolução de nomes).
 
 ```bash
 # 1. Clonar
-git clone https://github.com/SEU_USUARIO/monitor-servicos-discord.git
+git clone https://github.com/YannVoll/monitor-servicos-discord.git
 cd monitor-servicos-discord
 
 # 2. Ambiente virtual e dependências
@@ -181,4 +181,4 @@ python -m pytest -q
 └── tests/               # testes com pytest
 ```
 
-Autor: * Yan Vollrath *: [https://github.com/YannVoll](https://github.com/YannVoll/monitor-servicos-discord)
+Autor: **Yan Vollrath**: [github.com/YannVoll](https://github.com/YannVoll)
